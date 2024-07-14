@@ -1,0 +1,80 @@
+package JavaProgramming;
+import java.util.Scanner;
+import java.util.Random;
+
+//1. Generate a random number within a specified range, such as 1 to 100.
+//        2. Prompt the user to enter their guess for the generated number.
+//        3. Compare the user's guess with the generated number and provide feedback on whether the guess
+//        is correct, too high, or too low.
+//        4. Repeat steps 2 and 3 until the user guesses the correct number.
+//        You can incorporate additional details as follows:
+//        5. Limit the number of attempts the user has to guess the number.
+//        6. Add the option for multiple rounds, allowing the user to play again.
+//        7. Display the user's score, which can be based on the number of attempts taken or rounds won.
+public class NumberGame {
+    private static final int max_attempt = 10;
+   private static final Scanner sc = new Scanner(System.in);
+    public static void main(String[] args) {
+      int round =0;
+      int no_of_attempts = 0;
+      int score =0;
+      boolean playAgain = true;
+      while(playAgain){
+          round++;
+          int attempts = playRound();
+          score += max_attempt-attempts+1;
+          playAgain = checkInterestToPlay();
+      }
+        System.out.println("the number of round you played is " + round);
+        System.out.println("total score you got :" +score);
+    }
+
+    private static boolean checkInterestToPlay() {
+        System.out.println("Are you interested to play again");
+        boolean check = sc.nextBoolean();
+        return check;
+    }
+
+    private static int playRound() {
+        int random_num = GenerateRandom();
+        int attempts = 0;
+        boolean is_CorrectNum = false;
+        while(attempts<max_attempt && (!is_CorrectNum)){
+            System.out.println("I have generated the number from 1 to 100. Try to guess it");
+            int guss_num = Guessnum();
+            System.out.println("your attempt number is " + (attempts+1));
+            is_CorrectNum = checkNum(random_num,guss_num);
+            attempts++;
+        }
+        if(!is_CorrectNum){
+            System.out.println("you exceeds the number of attempts. The correct number is " + random_num);
+        }
+           return attempts;
+    }
+    private static int GenerateRandom() {
+        int num;
+        Random random = new Random();
+        System.out.println("Generate a random number");
+        num = random.nextInt(0,100);
+        return num;
+    }
+    private static int Guessnum(){
+        System.out.println("enter the number from the user");
+        int num= sc.nextInt();
+        return num;
+    }
+    private static boolean checkNum(int random_num,int guess_num){
+        if(random_num > guess_num){
+            System.out.println("the number is too low");
+            return false;
+        }
+        else if(random_num < guess_num){
+            System.out.println("the number is too high");
+            return false;
+        }
+        else {
+            System.out.println("your guess is correct");
+            return true;
+        }
+    }
+}
