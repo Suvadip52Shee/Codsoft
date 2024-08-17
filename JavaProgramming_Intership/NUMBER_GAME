@@ -73,7 +73,7 @@ public class NumberGame {
             return false;
         }
         else {
-            System.out.println("your guess is correct");
+            System.out.println("Now the number is Correct");
             return true;
         }
     }
